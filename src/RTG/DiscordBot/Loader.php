@@ -85,7 +85,7 @@ class Loader extends PluginBase implements Listener {
                     
             /* ------ */
             
-            if($host === strtolower("multicraft")) {
+            if(strtolower($host) === "multicraft") {
                 $this->getLogger()->warning("Good bye!");
                 $this->getServer()->dispatchCommand(new \pocketmine\command\ConsoleCommandSender, $command);
             }
