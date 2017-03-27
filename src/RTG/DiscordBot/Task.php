@@ -36,21 +36,19 @@ class Task extends PluginTask {
     
     public function onRun($currentTick) {
         
-        $cfg = $plugin->cfg->getAll();
-        
-            if($cfg["enable"] === true) {
+            if($this->plugin->cfg->get("enable") === true) {
                 
                 $command = "restart";
                 
-                $msg = $cfg["shut_message"];
-                $user = $cfg["username"];
-                
+                $msg = $this->plugin->cfg->get("shut_message");
+                $user = $this->plugin->cfg->get("username");
+
                 /* Thanks Niekert for these lines! */
                 
                 $curl  = curl_init();
                 $line = array("content" => $msg, "username" => "$user");
                 
-                    curl_setopt($curl, CURLOPT_URL, $cfg["webhook"]);
+                    curl_setopt($curl, CURLOPT_URL, $this->plugin->cfg->get("webhook"));
                     curl_setopt($curl, CURLOPT_POSTFIELDS, $line);
                     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                     
