@@ -34,7 +34,7 @@ class Loader extends PluginBase implements Listener {
         
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->saveResource("config.yml");
-            
+        
         @mkdir($this->getDataFolder());
         $this->cfg = new Config($this->getDataFolder() . 'config.yml', Config::YAML, array(
             "webhook" => "",
@@ -46,9 +46,10 @@ class Loader extends PluginBase implements Listener {
             "shut_message" => ""
         ));
         
+        
         $period = $this->cfg->get("ticks");
         
-        $this->getServer()->getScheduler()->scheduleTask(new TaskMCPE($this), $period);
+        $this->getServer()->getScheduler()->scheduleRepeatingTask(new TaskMCPE($this), $period);
         
         if($this->cfg->get("serverhost") === "") {
             $this->getLogger()->warning("Make sure you have set your ServerHost before using this plugin!");
@@ -60,8 +61,6 @@ class Loader extends PluginBase implements Listener {
     public function run() {
         
         if($this->cfg->get("enable") === true) {
-                
-            $this->getLogger()->warning("hey");
                 
             $command = "say hi"; // used for testing!
                 
@@ -85,14 +84,7 @@ class Loader extends PluginBase implements Listener {
                     
             /* ------ */
             
-            if(strtolower($host) === "multicraft") {
-                $this->getLogger()->warning("Good bye!");
-                $this->getServer()->dispatchCommand(new \pocketmine\command\ConsoleCommandSender, $command);
-            }
-            else {
-                $this->getLogger()->warning("You can't use this function on other servers yet!");
-                $this->setEnabled(false);
-            }
+            $this->getServer()->dispatchCommand(new \pocketmine\command\ConsoleCommandSender, $command);
         
         }
         
