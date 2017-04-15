@@ -1,7 +1,0 @@
-name: DiscordBot
-version: 1.0.0
-main: RTG\DiscordBot\Loader
-api:
-    - 2.1.0
-    - 3.0.0-ALPHA4
-author: RTG
